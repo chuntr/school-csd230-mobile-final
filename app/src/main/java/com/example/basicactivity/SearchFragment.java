@@ -9,11 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.basicactivity.databinding.FragmentFirstBinding;
+import com.example.basicactivity.databinding.FragmentSearchBinding;
 
 public class SearchFragment extends Fragment {
 
-    private FragmentFirstBinding binding;
+    private FragmentSearchBinding binding;
 
     @Override
     public View onCreateView(
@@ -21,19 +21,18 @@ public class SearchFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding = FragmentSearchBinding.inflate(inflater, container, false);
         return binding.getRoot();
-
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
+        binding.buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(SearchFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                        .navigate(R.id.action_SearchFragment_to_ResultsFragment);
             }
         });
     }

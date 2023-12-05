@@ -1,16 +1,20 @@
 <resources>
-    <string name="app_name">Basic Activity</string>
+    <string name="app_name">Food Finder</string>
     <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="first_fragment_label">Search for a Food</string>
+    <string name="second_fragment_label">Search Results</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- search fragment strings -->
+    <string name="header_text">Welcome to Food Finder!</string>
+    <string name="search_message">Search for nutrition information on common foods:</string>
+    <string name="search_hint">Enter the name of a food item</string>
+    <string name="search_button">Search Food Info</string>
+
+    <!-- search results fragment strings -->
+    <string name="results_header">Nutrition Information for:</string>
+
+
+    <!-- results detail fragment strings -->
     <string name="label_serving_size">Serving Size:</string>
     <string name="label_calories">Calories</string>
     <string name="label_fat">Fat:</string>

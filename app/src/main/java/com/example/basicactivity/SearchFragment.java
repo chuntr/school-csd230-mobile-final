@@ -14,9 +14,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.basicactivity.databinding.FragmentSearchBinding;
+
+import org.json.JSONObject;
 
 public class SearchFragment extends Fragment {
 
@@ -43,9 +46,27 @@ public class SearchFragment extends Fragment {
             public void onClick(View view) {
 
                 RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-                String url = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=JQ5aRpzEtKywc1sS6YYf4HcGfY0fpMLBULBJ1PcW&query=tomato";
+                String url = "https://api.nal.usda.gov/fdc/v1/food/1999634?api_key=JQ5aRpzEtKywc1sS6YYf4HcGfY0fpMLBULBJ1PcW";
 
                 //TODO: add url params, change to post
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                textView.setText("Response is: \n" + response.toString());
+
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        textView.setText("That didn't work");
+                    }
+                });
+
+                // add this to the request queue
+                queue.add(request);
+
+                /*
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                         new Response.Listener<String>() {
                             @Override
@@ -58,9 +79,7 @@ public class SearchFragment extends Fragment {
                         textView.setText("That didn't work");
                     }
                 });
-
-                // add this to the request queue
-                queue.add(stringRequest);
+                */
 
                 /*
                 NavHostFragment.findNavController(SearchFragment.this)

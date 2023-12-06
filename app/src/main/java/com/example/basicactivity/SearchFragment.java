@@ -68,28 +68,21 @@ public class SearchFragment extends Fragment {
                 final String requestBody = data.toString();
 
                 //TODO: add url params, change to post
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, data, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, data, response -> {
 
+                        String description;
+                        try {
                             // "foods" key is the list of result objects that matched the search term
-                            String description;
-                            try {
-                                JSONArray resultList = response.getJSONArray("foods");
-                                // TODO: grab the whole list
-                                description = resultList.getJSONObject(0).getString("description");
-                                textView.setText("Response is: \n" + description);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                            JSONArray resultList = response.getJSONArray("foods");
+                            // TODO: grab the whole list
+                            description = resultList.getJSONObject(0).getString("description");
+                            textView.setText("Response is: \n" + description);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     },
-                        new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        textView.setText("That didn't work");
-                    }
-                });
+                    error -> textView.setText("That didn't work")
+                );
 
 
                 // add this to the request queue

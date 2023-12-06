@@ -19,8 +19,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.basicactivity.databinding.FragmentSearchBinding;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class SearchFragment extends Fragment {
 
@@ -47,29 +52,45 @@ public class SearchFragment extends Fragment {
             public void onClick(View view) {
 
                 RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-                String url = "https://api.nal.usda.gov/fdc/v1/food/1999634?api_key=JQ5aRpzEtKywc1sS6YYf4HcGfY0fpMLBULBJ1PcW";
+                String url = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=JQ5aRpzEtKywc1sS6YYf4HcGfY0fpMLBULBJ1PcW";
+
+                // dataTypes query option for this API needs to be a list in JSON post data, but we only want one type
+                List<String> dataTypeList = Collections.singletonList("Foundation");
+
+                // create JSON post data
+                JSONObject data = new JSONObject();
+                try {
+                    data.put("query", "tomato");
+                    data.put("dataType", new JSONArray(dataTypeList));
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                final String requestBody = data.toString();
 
                 //TODO: add url params, change to post
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, data, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
 
-                                String description;
-                                try {
-                                    //JSONObject info = response.getJSONObject("description");
-                                    description = response.getString("description");
-                                    textView.setText("Response is: \n" + description);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                            // "foods" key is the list of result objects that matched the search term
+                            String description;
+                            try {
+                                JSONArray resultList = response.getJSONArray("foods");
+                                // TODO: grab the whole list
+                                description = resultList.getJSONObject(0).getString("description");
+                                textView.setText("Response is: \n" + description);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        }, new Response.ErrorListener() {
+                        }
+                    },
+                        new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         textView.setText("That didn't work");
                     }
                 });
+
 
                 // add this to the request queue
                 queue.add(request);

@@ -11,7 +11,7 @@
     <string name="search_button">Search Food Info</string>
 
     <!-- search results fragment strings -->
-    <string name="results_header">Nutrition Information for:</string>
+    <string name="results_header">Nutrition Information for: </string>
 
 
     <!-- results detail fragment strings -->

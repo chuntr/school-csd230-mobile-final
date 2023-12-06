@@ -36,6 +36,14 @@ public class ResultsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // customize header
+        TextView resultsHeader = binding.resultsHeader;
+        /* TODO: need to get textInput from previous frgament
+        TextView textInput = binding.textInput;
+        String newResultsHeader = resultsHeader.getText() + textInput.getText();
+        resultsHeader.setText(newResultsHeader);
+         */
+
         //TODO: remove, temp for basic output testing
         TextView textView = binding.textView;
 
@@ -59,19 +67,17 @@ public class ResultsFragment extends Fragment {
 
         //TODO: add url params, change to post
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, data, response -> {
-
-            String description;
-            try {
-                // "foods" key is the list of result objects that matched the search term
-                JSONArray resultList = response.getJSONArray("foods");
-                // TODO: grab the whole list
-                description = resultList.getJSONObject(0).getString("description");
-                textView.setText("Response is: \n" + description);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        },
-                error -> textView.setText("That didn't work")
+                String description;
+                try {
+                    // "foods" key is the list of result objects that matched the search term
+                    JSONArray resultList = response.getJSONArray("foods");
+                    // TODO: grab the whole list
+                    description = resultList.getJSONObject(0).getString("description");
+                    textView.setText("Response is: \n" + description);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }, error -> textView.setText("That didn't work")
         );
 
 

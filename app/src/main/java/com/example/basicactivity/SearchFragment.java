@@ -19,6 +19,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.basicactivity.databinding.FragmentSearchBinding;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SearchFragment extends Fragment {
@@ -53,8 +54,15 @@ public class SearchFragment extends Fragment {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                textView.setText("Response is: \n" + response.toString());
 
+                                String description;
+                                try {
+                                    //JSONObject info = response.getJSONObject("description");
+                                    description = response.getString("description");
+                                    textView.setText("Response is: \n" + description);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }, new Response.ErrorListener() {
                     @Override
@@ -66,20 +74,6 @@ public class SearchFragment extends Fragment {
                 // add this to the request queue
                 queue.add(request);
 
-                /*
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                textView.setText("Response is" + response);
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        textView.setText("That didn't work");
-                    }
-                });
-                */
 
                 /*
                 NavHostFragment.findNavController(SearchFragment.this)

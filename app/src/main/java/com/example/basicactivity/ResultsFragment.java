@@ -36,15 +36,7 @@ public class ResultsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // customize header
-        TextView resultsHeader = binding.resultsHeader;
-        /* TODO: need to get textInput from previous frgament
-        TextView textInput = binding.textInput;
-        String newResultsHeader = resultsHeader.getText() + textInput.getText();
-        resultsHeader.setText(newResultsHeader);
-         */
-
-        //TODO: remove, temp for basic output testing
+        //TODO: remove this, temp for basic output testing
         TextView textView = binding.textView;
 
         // Setup REST call to the USDA food API

@@ -11,15 +11,16 @@
     <string name="search_button">Search Food Info</string>
 
     <!-- search results fragment strings -->
-    <string name="results_header">Nutrition Information for: </string>
+    <string name="results_header">Select an item for details</string>
 
 
     <!-- results detail fragment strings -->
-    <string name="label_serving_size">Serving Size:</string>
-    <string name="label_calories">Calories</string>
-    <string name="label_fat">Fat:</string>
-    <string name="label_protein">Protein:</string>
-    <string name="lable_carbs">Carbohydrates:</string>
-    <string name="label_sodium">Sodium:</string>
-    <string name="label_chol">Cholestorol:</string>
+    <string name="item_detail_header">Details for : </string>
+    <string name="label_serving_size">Serving Size : </string>
+    <string name="label_calories">Calories : </string>
+    <string name="label_fat">Fat : </string>
+    <string name="label_chol">Cholesterol : </string>
+    <string name="label_sodium">Sodium : </string>
+    <string name="label_carbs">Carbohydrates : </string>
+    <string name="label_protein">Protein : </string>
 </resources>

@@ -20,24 +20,29 @@
                 android:id="@+id/itemName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text=""/>
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:text="@string/item_detail_header"/>
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:paddingTop="32dp">
 
             <TextView
                 android:id="@+id/servingKey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_serving_size" />
+                android:text="@string/label_serving_size"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/servingValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:text="x"
+                android:textSize="20sp" />
         </TableRow>
 
         <TableRow
@@ -48,13 +53,15 @@
                 android:id="@+id/calorieKey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="20sp"
                 android:text="@string/label_calories" />
 
             <TextView
                 android:id="@+id/calorieValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:textSize="20sp"
+                android:text="x" />
         </TableRow>
 
         <TableRow
@@ -65,14 +72,15 @@
                 android:id="@+id/fatKey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="20sp"
                 android:text="@string/label_fat" />
 
             <TextView
                 android:id="@+id/fatValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:text="" />
+                android:textSize="20sp"
+                android:text="x" />
         </TableRow>
 
         <TableRow
@@ -83,14 +91,15 @@
                 android:id="@+id/cholKey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="20sp"
                 android:text="@string/label_chol" />
 
             <TextView
                 android:id="@+id/cholValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:text="" />
+                android:textSize="20sp"
+                android:text="x" />
         </TableRow>
 
         <TableRow
@@ -101,13 +110,15 @@
                 android:id="@+id/sodiumKey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="20sp"
                 android:text="@string/label_sodium" />
 
             <TextView
                 android:id="@+id/sodiumValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:textSize="20sp"
+                android:text="x" />
         </TableRow>
 
         <TableRow
@@ -118,13 +129,15 @@
                 android:id="@+id/carbsKey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/lable_carbs" />
+                android:textSize="20sp"
+                android:text="@string/label_carbs" />
 
             <TextView
                 android:id="@+id/carbsValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:textSize="20sp"
+                android:text="x" />
         </TableRow>
 
         <TableRow
@@ -135,13 +148,15 @@
                 android:id="@+id/proteinKey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="20sp"
                 android:text="@string/label_protein" />
 
             <TextView
                 android:id="@+id/proteinValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:textSize="20sp"
+                android:text="x" />
         </TableRow>
 
 

@@ -43,7 +43,6 @@ public class ResultsFragment extends Fragment {
 
         // Setup REST call to the USDA food API
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        String url = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=JQ5aRpzEtKywc1sS6YYf4HcGfY0fpMLBULBJ1PcW";
 
         // value of dataTypes query option for this API needs to be a list in JSON post data, but we only want one type
         List<String> dataTypeList = Collections.singletonList("Foundation");
@@ -61,7 +60,7 @@ public class ResultsFragment extends Fragment {
         StringBuilder descriptions = new StringBuilder(); // TODO: remove
 
         // run API request and fetch list of results based on query
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, data, response -> {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, getString(R.string.url), data, response -> {
                 String description;
                 try {
                     // "foods" key is the list of result objects that matched the search term
@@ -74,9 +73,9 @@ public class ResultsFragment extends Fragment {
 
                     for (int i=0; i < resultList.length(); i++) {
                         String newFood = resultList.getJSONObject(i).getString("description");
-                        descriptions.append(newFood);
-                        descriptions.append("\n");
-                        foodItems[i] = resultList.getJSONObject(i).getString("description");
+                        //descriptions.append(newFood);
+                        //descriptions.append("\n");
+                        foodItems[i] = newFood;
 
                     }
                     binding.textView.setText(descriptions);
@@ -85,9 +84,6 @@ public class ResultsFragment extends Fragment {
                     ArrayList<String> foodItemList = new ArrayList<>(Arrays.asList(foodItems));
                     FoodAdapter adapter = new FoodAdapter(getActivity(), foodItemList);
 
-                    //foodDisplayList = binding.recyclerView;
-                    //foodDisplayList.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    //foodDisplayList.setAdapter(adapter);
                     binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     binding.recyclerView.setAdapter(adapter);
 
@@ -97,7 +93,7 @@ public class ResultsFragment extends Fragment {
                 }
             }, error -> binding.textView.setText(R.string.api_call_failed)
         );
-        binding.textView.setText(descriptions);
+        //binding.textView.setText(descriptions);
         //binding.textView.setVisibility(View.INVISIBLE);
 
         // add this to the request queue

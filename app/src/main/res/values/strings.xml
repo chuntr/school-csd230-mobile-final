@@ -13,7 +13,7 @@
 
     <!-- search results fragment strings -->
     <string name="results_title">Select an item for details</string>
-    <string name="results_header">Search Results for: </string>
+    <string name="results_header">Results for: </string>
     <string name="api_call_failed">Call to API failed</string>
 
 

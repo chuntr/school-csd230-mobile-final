@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,12 +19,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class ResultsFragment extends Fragment {
 
     private FragmentResultsBinding binding;
+    private JSONArray resultList;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,7 +51,6 @@ public class ResultsFragment extends Fragment {
         // create JSON post data
         JSONObject data = new JSONObject();
         try {
-            //TODO: replace static "tomato" with resultsSearchString
             data.put("query", resultsSearchTerm);
             data.put("dataType", new JSONArray(dataTypeList));
         } catch (JSONException e) {
@@ -55,27 +58,47 @@ public class ResultsFragment extends Fragment {
         }
         final String requestBody = data.toString();
 
+        StringBuilder descriptions = new StringBuilder(); // TODO: remove
+
         // run API request and fetch list of results based on query
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, data, response -> {
                 String description;
                 try {
                     // "foods" key is the list of result objects that matched the search term
-                    JSONArray resultList = response.getJSONArray("foods");
+                    resultList = response.getJSONArray("foods");
 
-                    // set results description - temp for testing.
+                    // create String array of food descriptions
+                    String[] foodItems = new String[resultList.length()];
+
                     binding.resultsHeader.setText(String.format("%s %s", getString(R.string.results_header), resultsSearchTerm));
 
-                    StringBuilder descriptions = new StringBuilder();
                     for (int i=0; i < resultList.length(); i++) {
-                        descriptions.append(resultList.getJSONObject(i).getString("description"));
+                        String newFood = resultList.getJSONObject(i).getString("description");
+                        descriptions.append(newFood);
                         descriptions.append("\n");
+                        foodItems[i] = resultList.getJSONObject(i).getString("description");
+
                     }
                     binding.textView.setText(descriptions);
+
+                    // Create recycler view
+                    ArrayList<String> foodItemList = new ArrayList<>(Arrays.asList(foodItems));
+                    FoodAdapter adapter = new FoodAdapter(getActivity(), foodItemList);
+
+                    //foodDisplayList = binding.recyclerView;
+                    //foodDisplayList.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    //foodDisplayList.setAdapter(adapter);
+                    binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    binding.recyclerView.setAdapter(adapter);
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }, error -> binding.textView.setText(R.string.api_call_failed)
         );
+        binding.textView.setText(descriptions);
+        //binding.textView.setVisibility(View.INVISIBLE);
 
         // add this to the request queue
         queue.add(request);

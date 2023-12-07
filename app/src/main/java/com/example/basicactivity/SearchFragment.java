@@ -14,7 +14,6 @@ import com.example.basicactivity.databinding.FragmentSearchBinding;
 
 public class SearchFragment extends Fragment {
 
-    private ArrayAdapter<String> adapter;
     private FragmentSearchBinding binding;
 
     @Override

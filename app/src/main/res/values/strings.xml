@@ -5,13 +5,17 @@
     <string name="second_fragment_label">Search Results</string>
 
     <!-- search fragment strings -->
+    <string name="search_title">Search for a food</string>
     <string name="header_text">Welcome to Food Finder!</string>
     <string name="search_message">Search for nutrition information on common foods:</string>
     <string name="search_hint">Enter the name of a food item</string>
     <string name="search_button">Search Food Info</string>
 
     <!-- search results fragment strings -->
+    <string name="results_title">Search Results for</string>
     <string name="results_header">Select an item for details</string>
+    <string name="results_for">Results for: </string>
+    <string name="api_call_failed">Call to API failed</string>
 
 
     <!-- results detail fragment strings -->

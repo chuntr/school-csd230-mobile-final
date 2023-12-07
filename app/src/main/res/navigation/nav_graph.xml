@@ -8,16 +8,17 @@
     <fragment
         android:id="@+id/SearchFragment"
         android:name="com.example.basicactivity.SearchFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/search_title"
         tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_SearchFragment_to_ResultsFragment"
             app:destination="@id/ResultsFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/ResultsFragment"
         android:name="com.example.basicactivity.ResultsFragment"
-        android:label="@string/second_fragment_label"
+        android:label="@string/results_title"
         tools:layout="@layout/fragment_results">
         <action
             android:id="@+id/action_ResultsFragment_to_SearchFragment"
@@ -26,6 +27,7 @@
             android:id="@+id/action_ResultsFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.basicactivity.DetailFragment"

@@ -16,7 +16,7 @@ public class SearchFragment extends Fragment {
     private FragmentSearchBinding binding;
 
     @Override
-    public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSearchBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -27,8 +27,12 @@ public class SearchFragment extends Fragment {
         binding.buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // pass search term to results fragment
+                Bundle fragmentData = new Bundle();
+                fragmentData.putString("searchTerm", binding.textInput.getText().toString());
+
                 NavHostFragment.findNavController(SearchFragment.this)
-                        .navigate(R.id.action_SearchFragment_to_ResultsFragment);
+                        .navigate(R.id.action_SearchFragment_to_ResultsFragment, fragmentData);
             }
         });
     }

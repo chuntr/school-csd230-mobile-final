@@ -4,11 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -28,7 +26,7 @@ public class ResultsFragment extends Fragment {
     private FragmentResultsBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentResultsBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -36,8 +34,8 @@ public class ResultsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //TODO: remove this, temp for basic output testing
-        TextView textView = binding.textView;
+        // retrieve the search term from previous fragment
+        final String resultsSearchTerm = getArguments().getString("searchTerm");
 
         // Setup REST call to the USDA food API
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
@@ -49,8 +47,8 @@ public class ResultsFragment extends Fragment {
         // create JSON post data
         JSONObject data = new JSONObject();
         try {
-            //TODO: replace static "tomato" with query string
-            data.put("query", "tomato");
+            //TODO: replace static "tomato" with resultsSearchString
+            data.put("query", resultsSearchTerm);
             data.put("dataType", new JSONArray(dataTypeList));
         } catch (JSONException e) {
             throw new RuntimeException(e);
@@ -64,12 +62,15 @@ public class ResultsFragment extends Fragment {
                     // "foods" key is the list of result objects that matched the search term
                     JSONArray resultList = response.getJSONArray("foods");
                     // TODO: grab the whole list
+
+                    // set results description - temp for testing.
                     description = resultList.getJSONObject(0).getString("description");
-                    textView.setText("Response is: \n" + description);
+                    String resultsForItem = String.format("%s %s", getString(R.string.results_for), resultsSearchTerm);
+                    binding.textView.setText(String.format("%s\n%s", resultsForItem, description));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }, error -> textView.setText("That didn't work")
+            }, error -> binding.textView.setText(R.string.api_call_failed)
         );
 
 

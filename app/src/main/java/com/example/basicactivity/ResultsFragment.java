@@ -61,12 +61,16 @@ public class ResultsFragment extends Fragment {
                 try {
                     // "foods" key is the list of result objects that matched the search term
                     JSONArray resultList = response.getJSONArray("foods");
-                    // TODO: grab the whole list
 
                     // set results description - temp for testing.
-                    description = resultList.getJSONObject(0).getString("description");
                     String resultsForItem = String.format("%s %s", getString(R.string.results_for), resultsSearchTerm);
-                    binding.textView.setText(String.format("%s\n%s", resultsForItem, description));
+
+                    StringBuilder descriptions = new StringBuilder();
+                    for (int i=0; i < resultList.length(); i++) {
+                        descriptions.append(resultList.getJSONObject(i).getString("description"));
+                        descriptions.append("\n");
+                    }
+                    binding.textView.setText(String.format("%s\n%s", resultsForItem, descriptions));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -82,6 +86,9 @@ public class ResultsFragment extends Fragment {
         binding.buttonReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle fragmentData = new Bundle();
+                fragmentData.putString("searchTerm", binding.textInput.getText().toString());
+
                 NavHostFragment.findNavController(ResultsFragment.this)
                         .navigate(R.id.action_ResultsFragment_to_SearchFragment);
             }

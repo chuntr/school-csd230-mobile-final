@@ -63,14 +63,15 @@ public class ResultsFragment extends Fragment {
                     JSONArray resultList = response.getJSONArray("foods");
 
                     // set results description - temp for testing.
-                    String resultsForItem = String.format("%s %s", getString(R.string.results_for), resultsSearchTerm);
+                    binding.resultsHeader.setText(String.format("%s %s", getString(R.string.results_header), resultsSearchTerm));
+
 
                     StringBuilder descriptions = new StringBuilder();
                     for (int i=0; i < resultList.length(); i++) {
                         descriptions.append(resultList.getJSONObject(i).getString("description"));
                         descriptions.append("\n");
                     }
-                    binding.textView.setText(String.format("%s\n%s", resultsForItem, descriptions));
+                    binding.textView.setText(descriptions);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -55,7 +55,7 @@ public class ResultsFragment extends Fragment {
         }
         final String requestBody = data.toString();
 
-        //TODO: add url params, change to post
+        // run API request and fetch list of results based on query
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, data, response -> {
                 String description;
                 try {

@@ -24,16 +24,13 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // pass search term to results fragment
-                Bundle fragmentData = new Bundle();
-                fragmentData.putString("searchTerm", binding.textInput.getText().toString());
+        binding.buttonSearch.setOnClickListener(view1 -> {
+            // pass search term to results fragment
+            Bundle fragmentData = new Bundle();
+            fragmentData.putString("searchTerm", binding.textInput.getText().toString());
 
-                NavHostFragment.findNavController(SearchFragment.this)
-                        .navigate(R.id.action_SearchFragment_to_ResultsFragment, fragmentData);
-            }
+            NavHostFragment.findNavController(SearchFragment.this)
+                    .navigate(R.id.action_SearchFragment_to_ResultsFragment, fragmentData);
         });
     }
 

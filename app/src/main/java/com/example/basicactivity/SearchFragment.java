@@ -26,11 +26,11 @@ public class SearchFragment extends Fragment {
 
         binding.buttonSearch.setOnClickListener(view1 -> {
             // pass search term to results fragment
-            Bundle fragmentData = new Bundle();
-            fragmentData.putString("searchTerm", binding.textInput.getText().toString());
+            Bundle resultsData = new Bundle();
+            resultsData.putString("searchTerm", binding.textInput.getText().toString());
 
             NavHostFragment.findNavController(SearchFragment.this)
-                    .navigate(R.id.action_SearchFragment_to_ResultsFragment, fragmentData);
+                    .navigate(R.id.action_SearchFragment_to_ResultsFragment, resultsData);
         });
     }
 

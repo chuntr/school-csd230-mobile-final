@@ -65,7 +65,6 @@ public class ResultsFragment extends Fragment {
                     // set results description - temp for testing.
                     binding.resultsHeader.setText(String.format("%s %s", getString(R.string.results_header), resultsSearchTerm));
 
-
                     StringBuilder descriptions = new StringBuilder();
                     for (int i=0; i < resultList.length(); i++) {
                         descriptions.append(resultList.getJSONObject(i).getString("description"));
@@ -78,20 +77,19 @@ public class ResultsFragment extends Fragment {
             }, error -> binding.textView.setText(R.string.api_call_failed)
         );
 
-
         // add this to the request queue
         queue.add(request);
 
         /*
         //TODO: create these from a loop?
-        binding.buttonReturn.setOnClickListener(new View.OnClickListener() {
+        binding.???.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle fragmentData = new Bundle();
+                Bundle itemDetailData = new Bundle();
                 fragmentData.putString("searchTerm", binding.textInput.getText().toString());
 
                 NavHostFragment.findNavController(ResultsFragment.this)
-                        .navigate(R.id.action_ResultsFragment_to_SearchFragment);
+                        .navigate(R.id.action_ResultsFragment_to_DetailFragment, itemDetailData);
             }
         });
         */

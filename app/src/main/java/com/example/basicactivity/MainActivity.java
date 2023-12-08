@@ -1,5 +1,7 @@
 package com.example.basicactivity;
 
+/* Christopher Hunter - CSD 230 final project */
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;

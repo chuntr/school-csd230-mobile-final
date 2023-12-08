@@ -1,5 +1,7 @@
 package com.example.basicactivity;
 
+/* Christopher Hunter - CSD 230 final project */
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -114,10 +116,18 @@ public class ResultsFragment extends Fragment implements FoodAdapter.ItemClickLi
 
         // need to pass the string description of item that was clicked
         Bundle itemDetailData = new Bundle();
-        itemDetailData.putString("description", itemDescription);
+        itemDetailData.putString("description", getItemDescription());
 
         NavHostFragment.findNavController(ResultsFragment.this)
                 .navigate(R.id.action_ResultsFragment_to_DetailFragment, itemDetailData);
 
+    }
+
+    public void setItemDescription(String desc) {
+        itemDescription = desc;
+    }
+
+    public String getItemDescription() {
+        return itemDescription;
     }
 }

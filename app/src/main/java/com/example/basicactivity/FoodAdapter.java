@@ -1,5 +1,7 @@
 package com.example.basicactivity;
 
+/* Christopher Hunter - CSD 230 final project */
+
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;

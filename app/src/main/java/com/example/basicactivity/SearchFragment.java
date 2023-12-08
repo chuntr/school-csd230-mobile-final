@@ -1,5 +1,7 @@
 package com.example.basicactivity;
 
+/* Christopher Hunter - CSD 230 final project */
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

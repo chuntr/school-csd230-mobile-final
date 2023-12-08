@@ -1,64 +1,91 @@
 package com.example.basicactivity;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DetailFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
+
+import com.example.basicactivity.databinding.FragmentDetailBinding;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class DetailFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public DetailFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DetailFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DetailFragment newInstance(String param1, String param2) {
-        DetailFragment fragment = new DetailFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private FragmentDetailBinding binding;
+    private JSONArray resultList;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentDetailBinding.inflate(inflater, container, false);
+
+        return binding.getRoot();
+    }
+
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // fetch our results
+        resultList = ((MainActivity)getActivity()).getResultList();
+
+        final String description = getArguments().getString("description");
+
+        setDetailFields(description);
+    }
+
+    public void setDetailFields(String description) {
+        JSONObject thisFood;
+        for (int i=0; i < resultList.length(); i++) {
+            try {
+                String current = resultList.getJSONObject(i).getString("description");
+                if (current.compareTo(description) == 0) {
+                    thisFood = resultList.getJSONObject(i);
+
+                    // set display values
+                    JSONArray nutrients = thisFood.getJSONArray("foodNutrients");
+                    binding.itemName.setText(description);
+
+                    String serving = nutrients.getJSONObject(0).getString("nutrientName");
+                    //binding.servingValue.setText(getNutrientStringById(nutrients, ));
+                    binding.calorieValue.setText(getNutrientStringById(nutrients,"2047" ));
+                    binding.fatValue.setText(getNutrientStringById(nutrients, "204"));
+                    //binding.cholValue.setText(getNutrientStringById(nutrients, ));
+
+                    binding.sodiumValue.setText(getNutrientStringById(nutrients, "307"));
+                    binding.carbsValue.setText(getNutrientStringById(nutrients, "205"));
+                    binding.proteinValue.setText(getNutrientStringById(nutrients, "203"));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail, container, false);
+    public String getNutrientStringById (JSONArray nutrients, String id) {
+        try {
+            for (int i = 0; i < nutrients.length(); i++) {
+                if (nutrients.getJSONObject(i).getString("nutrientID") == id) {
+                    String name = nutrients.getJSONObject(i).getString("nutrientName");
+                    String number = nutrients.getJSONObject(i).getString("value");
+                    String units = nutrients.getJSONObject(i).getString("unitName");
+                    return String.format("%s %s%s", name, number, units);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
 }

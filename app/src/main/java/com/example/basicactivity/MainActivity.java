@@ -13,11 +13,13 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.basicactivity.databinding.ActivityMainBinding;
 
+import org.json.JSONArray;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
-
+    private JSONArray resultList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,5 +59,13 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void setResultList(JSONArray results) {
+        resultList = results;
+    }
+
+    public JSONArray getResultList() {
+        return resultList;
     }
 }

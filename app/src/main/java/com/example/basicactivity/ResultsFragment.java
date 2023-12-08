@@ -6,7 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.selection.ItemKeyProvider;
+import androidx.recyclerview.selection.SelectionTracker;
+import androidx.recyclerview.selection.StableIdKeyProvider;
+import androidx.recyclerview.selection.StorageStrategy;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.android.volley.Request;
@@ -14,6 +19,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.basicactivity.databinding.FragmentResultsBinding;
+import com.example.basicactivity.DetailsLookup;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,6 +34,8 @@ public class ResultsFragment extends Fragment {
 
     private FragmentResultsBinding binding;
     private JSONArray resultList;
+
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -98,6 +106,29 @@ public class ResultsFragment extends Fragment {
 
         // add this to the request queue
         queue.add(request);
+
+        /*
+        // selection tracker for recycler view
+        SelectionTracker selectionTracker = new SelectionTracker.Builder<>(
+                "selection_item",
+                binding.recyclerView,
+                new ItemKeyProvider(binding.recyclerView) {
+                    @Nullable
+                    @Override
+                    public Object getKey(int position) {
+                        return null;
+                    }
+
+                    @Override
+                    public int getPosition(@NonNull Object key) {
+                        return 0;
+                    }
+                },
+                new DetailsLookup(binding.recyclerView),
+                StorageStrategy.createStringStorage())
+                .build();
+         */
+
 
         /*
         //TODO: create these from a loop?

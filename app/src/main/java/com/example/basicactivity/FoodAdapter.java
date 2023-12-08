@@ -1,6 +1,7 @@
 package com.example.basicactivity;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,23 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
     private final LayoutInflater inflator;
     public ArrayList<String> foodItemList;
 
-    static class FoodViewHolder extends RecyclerView.ViewHolder {
+    public int selected = RecyclerView.NO_POSITION;
+
+    class FoodViewHolder extends RecyclerView.ViewHolder {
         public TextView foodTextView;
 
         public FoodViewHolder(@NonNull View itemView) {
             super(itemView);
             foodTextView = itemView.findViewById(R.id.foodListItem);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    notifyItemChanged(selected);
+                    selected = getAdapterPosition();
+                    notifyItemChanged(selected);
+                }
+            });
         }
     }
 
@@ -40,6 +52,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
     @Override
     public void onBindViewHolder(@NonNull FoodViewHolder holder, int position) {
         holder.foodTextView.setText(foodItemList.get(position));
+        holder.itemView.setSelected(selected == position);
+        holder.itemView.setBackgroundColor(selected == position ? Color.CYAN : Color.WHITE);
     }
 
     @Override

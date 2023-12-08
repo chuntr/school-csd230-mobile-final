@@ -24,7 +24,7 @@
             android:id="@+id/action_ResultsFragment_to_SearchFragment"
             app:destination="@id/SearchFragment" />
         <action
-            android:id="@+id/action_ResultsFragment_to_detailFragment"
+            android:id="@+id/action_ResultsFragment_to_DetailFragment"
             app:destination="@id/detailFragment" />
     </fragment>
 

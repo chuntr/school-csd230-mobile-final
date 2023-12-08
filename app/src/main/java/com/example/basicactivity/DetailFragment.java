@@ -43,7 +43,7 @@ public class DetailFragment extends Fragment {
         for (int i=0; i < resultList.length(); i++) {
             try {
                 String current = resultList.getJSONObject(i).getString("description");
-                if (current.compareTo(description) == 0) {
+                if (current.equals(description)) {
                     thisFood = resultList.getJSONObject(i);
 
                     // set display values
@@ -87,5 +87,4 @@ public class DetailFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
 }

@@ -6,13 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.selection.ItemKeyProvider;
-import androidx.recyclerview.selection.SelectionTracker;
-import androidx.recyclerview.selection.StableIdKeyProvider;
-import androidx.recyclerview.selection.StorageStrategy;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.android.volley.Request;
@@ -20,7 +15,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.basicactivity.databinding.FragmentResultsBinding;
-import com.example.basicactivity.FoodAdapter.ItemClickListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +30,7 @@ public class ResultsFragment extends Fragment implements FoodAdapter.ItemClickLi
     private FragmentResultsBinding binding;
     private JSONArray resultList;
 
+    private String itemDescription;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -97,31 +92,15 @@ public class ResultsFragment extends Fragment implements FoodAdapter.ItemClickLi
 
                     ((MainActivity)getActivity()).setResultList(resultList);
 
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }, error -> binding.textView.setText(R.string.api_call_failed)
         );
-        //binding.textView.setText(descriptions);
-        //binding.textView.setVisibility(View.INVISIBLE);
 
         // add this to the request queue
         queue.add(request);
 
-        /*
-        //TODO: create these from a loop?
-        binding.???.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle itemDetailData = new Bundle();
-                itemDetailsData.putString("searchTerm", binding.textInput.getText().toString());
-
-                NavHostFragment.findNavController(ResultsFragment.this)
-                        .navigate(R.id.action_ResultsFragment_to_DetailFragment, itemDetailData)
-            }
-        });
-        */
     }
 
     @Override
@@ -132,8 +111,10 @@ public class ResultsFragment extends Fragment implements FoodAdapter.ItemClickLi
 
     @Override
     public void onItemClick(String item) {
+
+        // need to pass the string description of item that was clicked
         Bundle itemDetailData = new Bundle();
-        //itemDetailsData.putString("searchTerm", binding.textInput.getText().toString());
+        itemDetailData.putString("description", itemDescription);
 
         NavHostFragment.findNavController(ResultsFragment.this)
                 .navigate(R.id.action_ResultsFragment_to_DetailFragment, itemDetailData);
